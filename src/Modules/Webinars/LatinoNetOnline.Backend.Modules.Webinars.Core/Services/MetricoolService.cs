@@ -58,9 +58,8 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
         {
             string enUnaHoraComenzamosText = string.Format(GetEnUnaHoraComenzamosTemplate(), proposal.Proposal.LiveStreaming);
 
-            metricoolText.AppendLine($"\"{enUnaHoraComenzamosText}\";\"{proposal.Proposal.EventDate:yyyy-MM-dd}\";\"10:45\";true;false;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
-
-            metricoolText.AppendLine($"\"{enUnaHoraComenzamosText}\";\"{proposal.Proposal.EventDate:yyyy-MM-dd}\";\"10:45\";false;true;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
+            //Facebook y Bluesky (Twitter/X en false temporalmente)
+            metricoolText.AppendLine($"\"{enUnaHoraComenzamosText}\",{proposal.Proposal.EventDate:yyyy-MM-dd},10:45:00,true,true,false,false,false,false,false,false,false,false,true,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
         }
 
         static void AddEstamosOnlinePosts(StringBuilder metricoolText, ProposalFullDto proposal)
@@ -79,18 +78,16 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
 
             string estamosOnlineText = string.Format(GetEstamosOnlineTemplate(), speakerText, proposal.Proposal.LiveStreaming);
 
-            metricoolText.AppendLine($"\"{estamosOnlineText}\";\"{proposal.Proposal.EventDate:yyyy-MM-dd}\";\"12:10\";true;false;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
-
-            metricoolText.AppendLine($"\"{estamosOnlineText}\";\"{proposal.Proposal.EventDate:yyyy-MM-dd}\";\"12:10\";false;true;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
+            //Facebook y Bluesky (Twitter/X en false temporalmente)
+            metricoolText.AppendLine($"\"{estamosOnlineText}\",{proposal.Proposal.EventDate:yyyy-MM-dd};12:10:00,true,true,false,false,false,false,false,false,false,false,true,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
         }
 
         static void AddWebinarDescriptionPosts(StringBuilder metricoolText, ProposalFullDto proposal)
         {
             string descriptionText = string.Format(GetDescriptionTemplate(), proposal.Proposal.Description, proposal.Proposal.Meetup);
 
-            metricoolText.AppendLine($"\"{descriptionText}\";\"{proposal.Proposal.EventDate.AddDays(-1):yyyy-MM-dd}\";\"15:00\";true;false;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
-
-            metricoolText.AppendLine($"\"{descriptionText}\";\"{proposal.Proposal.EventDate.AddDays(-1):yyyy-MM-dd}\";\"15:00\";false;true;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
+            //Facebook y Bluesky (Twitter/X en false temporalmente)
+            metricoolText.AppendLine($"\"{descriptionText}\",{proposal.Proposal.EventDate.AddDays(-1):yyyy-MM-dd},15:00:00,true,true,false,false,false,false,false,false,false,false,true,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
         }
 
 
@@ -121,14 +118,19 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
 
             string webinarAlertFacebookText = string.Format(GetWebinarAlertTemplate(), GetDateString(proposal.Proposal.EventDate), proposal.Proposal.Title, speakerText.ToString(), proposal.Proposal.Meetup);
 
-            metricoolText.AppendLine($"\"{webinarAlertFacebookText}\";\"{proposal.Proposal.EventDate.AddDays(-2):yyyy-MM-dd}\";\"15:00\";true;false;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
+            //Twitter
+            //metricoolText.AppendLine($"\"{webinarAlertTwitterText}\";\"{proposal.Proposal.EventDate.AddDays(-2):yyyy-MM-dd}\";\"15:00\";false;true;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
 
-            metricoolText.AppendLine($"\"{webinarAlertTwitterText}\";\"{proposal.Proposal.EventDate.AddDays(-2):yyyy-MM-dd}\";\"15:00\";false;true;false;false;false;false;;\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";false;;");
+            //Facebook
+            metricoolText.AppendLine($"\"{webinarAlertFacebookText}\",{proposal.Proposal.EventDate.AddDays(-2):yyyy-MM-dd},15:00:00,true,true,false,false,false,false,false,false,false,false,false,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
+
+            //Bluesky
+            metricoolText.AppendLine($"\"{webinarAlertTwitterText}\",{proposal.Proposal.EventDate.AddDays(-2):yyyy-MM-dd},15:00:00,true,false,false,false,false,false,false,false,false,false,true,,,,,,,,,,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,");
         }
 
 
         static string GetFileHeader()
-            => "Text;Date;Time;Facebook;Twitter;LinkedIn;GMB;Instagram;Pinterest;Picture Url 1;Picture Url 2;Picture Url 3;Picture Url 4;Picture Url 5;Picture Url 6;Picture Url 7;Picture Url 8;Picture Url 9;Picture Url 10;Shortener;Pinterest Board;Pinterest Pin Title";
+            => "Text,Date,Time,Draft,Facebook,Twitter/X,LinkedIn,GBP,Instagram,Pinterest,TikTok,Youtube,Threads,Bluesky,Picture Url 1,Picture Url 2,Picture Url 3,Picture Url 4,Picture Url 5,Picture Url 6,Picture Url 7,Picture Url 8,Picture Url 9,Picture Url 10,Document title,Shortener,Video Thumbnail Url,Video Cover Frame,Twitter/X Can reply,Twitter/X Type,Twitter/X Poll Duration minutes,Twitter/X Poll Option 1,Twitter/X Poll Option 2,Twitter/X Poll Option 3,Twitter/X Poll Option 4,Pinterest Board,Pinterest Pin Title,Pinterest Pin Link,Pinterest Pin New Format,Instagram Post Type,Instagram Show Reel On Feed,Youtube Video Title,Youtube Video Type,Youtube Video Privacy,Youtube video for kids,Youtube Video Category,Youtube Video Tags,GBP Post Type,Facebook Post Type,Facebook Title,First Comment Text,TikTok Title,TikTok disable comments,TikTok disable duet,TikTok disable stitch,TikTok Post Privacy,TikTok Branded Content,TikTok Your Brand,TikTok Auto Add Music,TikTok Photo Cover Index,LinkedIn Type,LinkedIn Poll Question,LinkedIn Poll Option 1,LinkedIn Poll Option 2,LinkedIn Poll Option 3,LinkedIn Poll Option 4,LinkedIn Poll Duration,LinkedIn Show link preview,LinkedIn Images as Carousel,Brand name";
 
         static string GetWebinarAlertTemplate()
             => @"🚨 Webinar Alert 🚨
