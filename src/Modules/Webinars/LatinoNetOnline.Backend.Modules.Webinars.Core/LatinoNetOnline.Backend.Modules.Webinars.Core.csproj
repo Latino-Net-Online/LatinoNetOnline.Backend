@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -20,21 +20,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.15.0" />
-    <PackageReference Include="CSharpFunctionalExtensions" Version="2.15.3" />
-    <PackageReference Include="FluentValidation" Version="10.2.3" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.6" />
-    <PackageReference Include="AivenEcommerce.V1.Modules.GitHub.DependencyInjection" Version="0.0.8" />
-    <PackageReference Include="Mailjet.Api" Version="2.0.1" />
+    <PackageReference Include="AngleSharp" Version="1.3.0" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="Mailjet.Api" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\LatinoNetOnline.Backend.Shared.Abstractions\LatinoNetOnline.Backend.Shared.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Shared\LatinoNetOnline.Backend.Shared.Commons\LatinoNetOnline.Backend.Shared.Commons.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AivenEcommerce.V1.Modules.GitHub">
+      <HintPath>..\..\..\..\offline-packages\aivenecommerce.v1.modules.github\0.0.8\lib\net5.0\AivenEcommerce.V1.Modules.GitHub.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
   <ItemGroup>

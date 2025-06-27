@@ -1,12 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\LatinoNetOnline.Backend.Shared.Infrastructure\LatinoNetOnline.Backend.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\LatinoNetOnline.Backend.Modules.Links.Core\LatinoNetOnline.Backend.Modules.Links.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="AivenEcommerce.V1.Modules.GitHub.DependencyInjection">
+      <HintPath>..\..\..\..\offline-packages\aivenecommerce.v1.modules.github.dependencyinjection\0.0.8\lib\net5.0\AivenEcommerce.V1.Modules.GitHub.DependencyInjection.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

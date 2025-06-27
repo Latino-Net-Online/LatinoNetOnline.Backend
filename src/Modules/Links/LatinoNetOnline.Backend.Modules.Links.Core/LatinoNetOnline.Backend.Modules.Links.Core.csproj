@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AivenEcommerce.V1.Modules.GitHub.DependencyInjection" Version="0.0.8" />
+    <Reference Include="AivenEcommerce.V1.Modules.GitHub">
+      <HintPath>..\..\..\..\offline-packages\aivenecommerce.v1.modules.github\0.0.8\lib\net5.0\AivenEcommerce.V1.Modules.GitHub.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
