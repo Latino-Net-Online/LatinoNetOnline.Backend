@@ -37,7 +37,7 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
         {
             CreateUnavailableDateValidator validator = new(_dbContext);
 
-            var validationResult = validator.Validate(input);
+            var validationResult = await validator.ValidateAsync(input);
 
             if (validationResult.IsValid)
             {
@@ -86,7 +86,7 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
 
             CreateUnavailableDateValidator validator = new(_dbContext);
 
-            var validationResult = validator.Validate(new CreateUnavailableDateInput(input.Date, input.Reason));
+            var validationResult = await validator.ValidateAsync(new CreateUnavailableDateInput(input.Date, input.Reason));
 
             if (validationResult.IsValid)
             {

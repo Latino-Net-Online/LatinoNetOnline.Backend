@@ -1,14 +1,14 @@
 ﻿
 using LatinoNetOnline.Backend.Shared.Infrastructure.Bootstrapper.Swagger;
 
+using Asp.Versioning.ApiExplorer;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.PlatformAbstractions;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -29,8 +29,9 @@ namespace LatinoNetOnline.Backend.Shared.Infrastructure.Bootstrapper.StartupExte
                      options.ReportApiVersions = true;
                      options.DefaultApiVersion = new(1, 0);
                      options.AssumeDefaultVersionWhenUnspecified = true;
-                 });
-            services.AddVersionedApiExplorer(
+                 })
+                .AddMvc()
+                .AddApiExplorer(
                 options =>
                 {
                     // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
@@ -54,19 +55,14 @@ namespace LatinoNetOnline.Backend.Shared.Infrastructure.Bootstrapper.StartupExte
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.Http,
                         Scheme = "bearer", // must be lower case
-                        BearerFormat = "JWT",
-                        Reference = new()
-                        {
-                            Id = JwtBearerDefaults.AuthenticationScheme,
-                            Type = ReferenceType.SecurityScheme
-                        }
+                        BearerFormat = "JWT"
                     };
 
                     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
 
-                    options.AddSecurityRequirement(new()
+                    options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
                     {
-                        { securityScheme, System.Array.Empty<string>() }
+                        [new OpenApiSecuritySchemeReference(JwtBearerDefaults.AuthenticationScheme, document)] = new List<string>()
                     });
 
                     // add a custom operation filter which sets default values
@@ -112,7 +108,7 @@ namespace LatinoNetOnline.Backend.Shared.Infrastructure.Bootstrapper.StartupExte
 
         static string GetXmlCommentsFilePath(Assembly assembly)
         {
-            var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+            var basePath = System.AppContext.BaseDirectory;
             var fileName = assembly.GetName().Name + ".xml";
             return Path.Combine(basePath, fileName);
         }

@@ -132,21 +132,21 @@ namespace LatinoNetOnline.Backend.Modules.Webinars.Core.Services
             => await _dbContext.Proposals.IncludeIf(include, x => x.Speakers).SingleOrDefaultAsync(x => x.Id == id);
 
 
-        private Result<CreateProposalInput> Validate(CreateProposalInput input)
+        private async Task<Result<CreateProposalInput>> Validate(CreateProposalInput input)
         {
             CreateProposalValidator validator = new(_dbContext);
 
-            var validationResult = validator.Validate(input);
+            var validationResult = await validator.ValidateAsync(input);
 
             return validationResult.ToResult(input);
 
         }
 
-        private Result<UpdateProposalInput> Validate(UpdateProposalInput input)
+        private async Task<Result<UpdateProposalInput>> Validate(UpdateProposalInput input)
         {
             UpdateProposalValidator validator = new(_dbContext);
 
-            var validationResult = validator.Validate(input);
+            var validationResult = await validator.ValidateAsync(input);
 
             return validationResult.ToResult(input);
 

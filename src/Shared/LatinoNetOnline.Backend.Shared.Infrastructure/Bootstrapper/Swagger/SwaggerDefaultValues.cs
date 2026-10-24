@@ -1,12 +1,15 @@
 ﻿namespace LatinoNetOnline.Backend.Shared.Infrastructure.Bootstrapper.Swagger
 {
+    using Asp.Versioning.ApiExplorer;
+
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
-    using Microsoft.OpenApi.Any;
-    using Microsoft.OpenApi.Models;
+
+    using Microsoft.OpenApi;
 
     using Swashbuckle.AspNetCore.SwaggerGen;
 
     using System.Linq;
+    using System.Text.Json.Nodes;
 
     /// <summary>
     /// Represents the Swagger/Swashbuckle operation filter used to document the implicit API version parameter.
@@ -24,7 +27,7 @@
         {
             var apiDescription = context.ApiDescription;
 
-            operation.Deprecated |= apiDescription.IsDeprecated();
+            operation.Deprecated |= apiDescription.IsDeprecated;
 
             if (operation.Parameters is null)
             {
@@ -38,17 +41,17 @@
 
                 var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
 
-                if (parameter.Description is null)
+                if (parameter is OpenApiParameter openApiParameter)
                 {
-                    parameter.Description = description.ModelMetadata?.Description;
-                }
+                    openApiParameter.Description ??= description.ModelMetadata?.Description;
 
-                if (parameter.Schema.Default is null && description.DefaultValue is not null)
-                {
-                    parameter.Schema.Default = new OpenApiString(description.DefaultValue.ToString());
-                }
+                    if (openApiParameter.Schema is OpenApiSchema schema && schema.Default is null && description.DefaultValue is not null)
+                    {
+                        schema.Default = JsonValue.Create(description.DefaultValue.ToString());
+                    }
 
-                parameter.Required |= description.IsRequired;
+                    openApiParameter.Required |= description.IsRequired;
+                }
             }
         }
     }

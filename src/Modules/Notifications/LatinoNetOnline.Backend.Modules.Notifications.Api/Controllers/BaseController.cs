@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LatinoNetOnline.Backend.Modules.Notifications.Api.Controllers
